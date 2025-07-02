@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Youtube, Twitter, Trophy, Target, Clock } from 'lucide-react';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Youtube, Twitter, Trophy, Target, Clock, MessageSquare } from 'lucide-react';
 
 const KachingLanding = () => {
   const [kPoints, setKPoints] = useState(1250);
@@ -17,6 +18,11 @@ const KachingLanding = () => {
 
   const handleTelegram = () => {
     window.open('https://t.me', '_blank');
+  };
+
+  const handleValidateTask = (taskName: string) => {
+    console.log(`Validating task: ${taskName}`);
+    // Add validation logic here
   };
 
   return (
@@ -77,8 +83,8 @@ const KachingLanding = () => {
               </CardContent>
             </Card>
 
-            {/* K-Drop Button */}
-            <Card className="bg-white/80 backdrop-blur-sm border-red-200 shadow-xl">
+            {/* K-Drop Button - Commented out */}
+            {/* <Card className="bg-white/80 backdrop-blur-sm border-red-200 shadow-xl">
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold text-gray-800 mb-4">Ready to Play?</h3>
                 <Button 
@@ -88,32 +94,70 @@ const KachingLanding = () => {
                   🎲 K-Drop - Play Now
                 </Button>
               </CardContent>
-            </Card>
+            </Card> */}
 
-            {/* New K-Tasks Section */}
+            {/* K-Tasks Section */}
             <Card className="bg-white/80 backdrop-blur-sm border-red-200 shadow-xl">
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
                   <Trophy className="w-6 h-6 text-kaching-red mr-2" />
                   K-Tasks
                 </h3>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-100">
-                    <div className="flex items-center">
-                      <Target className="w-5 h-5 text-kaching-red mr-3" />
-                      <span className="font-medium text-gray-700">Complete Daily Challenge</span>
+                <ScrollArea className="h-64 pr-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-100">
+                      <div className="flex items-center flex-1">
+                        <Twitter className="w-5 h-5 text-kaching-red mr-3" />
+                        <span className="font-medium text-gray-700">Like us on Twitter</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="text-kaching-red font-bold">+500 K</span>
+                        <Button 
+                          size="sm"
+                          onClick={() => handleValidateTask('Twitter Like')}
+                          className="bg-kaching-red hover:bg-kaching-red-dark text-white px-3 py-1 text-xs"
+                        >
+                          Validate
+                        </Button>
+                      </div>
                     </div>
-                    <span className="text-kaching-red font-bold">+500 K</span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-100">
-                    <div className="flex items-center">
-                      <Clock className="w-5 h-5 text-kaching-red mr-3" />
-                      <span className="font-medium text-gray-700">Join Pre-Launch Event</span>
+                    
+                    <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-100">
+                      <div className="flex items-center flex-1">
+                        <MessageSquare className="w-5 h-5 text-kaching-red mr-3" />
+                        <span className="font-medium text-gray-700">Join our TG community</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="text-kaching-red font-bold">+1000 K</span>
+                        <Button 
+                          size="sm"
+                          onClick={() => handleValidateTask('Telegram Join')}
+                          className="bg-kaching-red hover:bg-kaching-red-dark text-white px-3 py-1 text-xs"
+                        >
+                          Validate
+                        </Button>
+                      </div>
                     </div>
-                    <span className="text-kaching-red font-bold">+1000 K</span>
+                    
+                    <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-100">
+                      <div className="flex items-center flex-1">
+                        <Target className="w-5 h-5 text-kaching-red mr-3" />
+                        <span className="font-medium text-gray-700">Post a Kaching meme</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="text-kaching-red font-bold">+1500 K</span>
+                        <Button 
+                          size="sm"
+                          onClick={() => handleValidateTask('Kaching Meme')}
+                          className="bg-kaching-red hover:bg-kaching-red-dark text-white px-3 py-1 text-xs"
+                        >
+                          Validate
+                        </Button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <p className="text-sm text-gray-500 mt-3">Earn more K-Points by completing tasks!</p>
+                </ScrollArea>
+                <p className="text-sm text-gray-500 mt-3">Complete tasks to earn more K-Points!</p>
               </CardContent>
             </Card>
 
