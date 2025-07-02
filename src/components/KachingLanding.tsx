@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Youtube, Twitter } from 'lucide-react';
+import { Youtube, Twitter, Trophy, Target, Clock } from 'lucide-react';
 
 const KachingLanding = () => {
   const [kPoints, setKPoints] = useState(1250);
@@ -87,6 +87,33 @@ const KachingLanding = () => {
                 >
                   🎲 K-Drop - Play Now
                 </Button>
+              </CardContent>
+            </Card>
+
+            {/* New K-Tasks Section */}
+            <Card className="bg-white/80 backdrop-blur-sm border-red-200 shadow-xl">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <Trophy className="w-6 h-6 text-kaching-red mr-2" />
+                  K-Tasks
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-100">
+                    <div className="flex items-center">
+                      <Target className="w-5 h-5 text-kaching-red mr-3" />
+                      <span className="font-medium text-gray-700">Complete Daily Challenge</span>
+                    </div>
+                    <span className="text-kaching-red font-bold">+500 K</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-100">
+                    <div className="flex items-center">
+                      <Clock className="w-5 h-5 text-kaching-red mr-3" />
+                      <span className="font-medium text-gray-700">Join Pre-Launch Event</span>
+                    </div>
+                    <span className="text-kaching-red font-bold">+1000 K</span>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-500 mt-3">Earn more K-Points by completing tasks!</p>
               </CardContent>
             </Card>
 
