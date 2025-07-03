@@ -212,55 +212,53 @@ const KachingLanding = () => {
                 <h4 className="font-semibold text-gray-800 mb-2 text-sm">Content Visibility Controls</h4>
                 <div className="flex flex-col gap-3 text-xs">
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-600 w-16">Top Crop:</span>
+                    <span className="text-gray-600 w-16">Top Start:</span>
                     <input
                       type="range"
-                      min="-500"
-                      max="500"
-                      defaultValue="-60"
+                      min="0"
+                      max="1000"
+                      defaultValue="60"
                       className="w-20 h-1"
                       onChange={(e) => {
+                        const topValue = parseInt(e.target.value);
+                        const bottomSlider = document.querySelector('input[data-control="bottom"]') as HTMLInputElement;
+                        const bottomValue = parseInt(bottomSlider.value);
                         const iframe = document.querySelector('iframe[title="KGEN K-Drop Game"]') as HTMLIFrameElement;
-                        if (iframe) {
-                          iframe.style.marginTop = `${e.target.value}px`;
+                        const container = iframe?.parentElement as HTMLElement;
+                        
+                        if (iframe && container) {
+                          iframe.style.marginTop = `-${topValue}px`;
+                          container.style.height = `${bottomValue - topValue}px`;
                         }
+                        document.getElementById('top-value')!.textContent = `${topValue}px`;
                       }}
+                      data-control="top"
                     />
-                    <span className="text-gray-500 w-8 text-right" id="top-value">-60px</span>
+                    <span className="text-gray-500 w-8 text-right" id="top-value">60px</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-600 w-16">Bottom Crop:</span>
+                    <span className="text-gray-600 w-16">Bottom End:</span>
                     <input
                       type="range"
-                      min="-500"
-                      max="500"
-                      defaultValue="-60"
-                      className="w-20 h-1"
-                      onChange={(e) => {
-                        const iframe = document.querySelector('iframe[title="KGEN K-Drop Game"]') as HTMLIFrameElement;
-                        if (iframe) {
-                          iframe.style.marginBottom = `${e.target.value}px`;
-                        }
-                      }}
-                    />
-                    <span className="text-gray-500 w-8 text-right" id="bottom-value">-60px</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-600 w-16">Frame Height:</span>
-                    <input
-                      type="range"
-                      min="200"
+                      min="100"
                       max="1200"
-                      defaultValue="600"
+                      defaultValue="660"
                       className="w-20 h-1"
                       onChange={(e) => {
-                        const container = document.querySelector('iframe[title="KGEN K-Drop Game"]')?.parentElement as HTMLElement;
-                        if (container) {
-                          container.style.height = `${e.target.value}px`;
+                        const bottomValue = parseInt(e.target.value);
+                        const topSlider = document.querySelector('input[data-control="top"]') as HTMLInputElement;
+                        const topValue = parseInt(topSlider.value);
+                        const iframe = document.querySelector('iframe[title="KGEN K-Drop Game"]') as HTMLIFrameElement;
+                        const container = iframe?.parentElement as HTMLElement;
+                        
+                        if (iframe && container && bottomValue > topValue) {
+                          container.style.height = `${bottomValue - topValue}px`;
                         }
+                        document.getElementById('bottom-value')!.textContent = `${bottomValue}px`;
                       }}
+                      data-control="bottom"
                     />
-                    <span className="text-gray-500 w-8 text-right" id="height-value">600px</span>
+                    <span className="text-gray-500 w-8 text-right" id="bottom-value">660px</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-gray-600 w-16">Left Crop:</span>
@@ -285,16 +283,28 @@ const KachingLanding = () => {
                       // Reset all values
                       const iframe = document.querySelector('iframe[title="KGEN K-Drop Game"]') as HTMLIFrameElement;
                       const container = iframe?.parentElement as HTMLElement;
+                      const topSlider = document.querySelector('input[data-control="top"]') as HTMLInputElement;
+                      const bottomSlider = document.querySelector('input[data-control="bottom"]') as HTMLInputElement;
+                      const leftSlider = document.querySelector('input[type="range"]:not([data-control])') as HTMLInputElement;
+                      
                       if (iframe && container) {
                         iframe.style.marginTop = '-60px';
-                        iframe.style.marginBottom = '-60px';
                         iframe.style.marginLeft = '0px';
                         container.style.height = '600px';
-                        // Reset sliders
-                        document.querySelectorAll('input[type="range"]').forEach((slider: any, index) => {
-                          const defaults = ['-60', '-60', '600', '0'];
-                          slider.value = defaults[index];
-                        });
+                        
+                        // Reset sliders and their values
+                        if (topSlider) {
+                          topSlider.value = '60';
+                          document.getElementById('top-value')!.textContent = '60px';
+                        }
+                        if (bottomSlider) {
+                          bottomSlider.value = '660';
+                          document.getElementById('bottom-value')!.textContent = '660px';
+                        }
+                        if (leftSlider) {
+                          leftSlider.value = '0';
+                          document.getElementById('left-value')!.textContent = '0px';
+                        }
                       }
                     }}
                   >
