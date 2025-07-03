@@ -200,65 +200,58 @@ const KachingLanding = () => {
                   src="https://play.kgen.io/k-drop/campaigns/2af8d286-9649-4092-a1fa-84060c368797"
                   className="w-full border-0 transform transition-transform duration-300"
                   style={{
-                    height: '1200px', // Fixed large height to ensure all content renders
-                    marginTop: '-60px', // Negative margin to hide header
-                    marginLeft: '0px' // Left positioning
+                    height: '1200px',
+                    marginTop: '-60px',
+                    marginLeft: '0px'
                   }}
                   title="KGEN K-Drop Game"
                   loading="lazy"
                 />
               </div>
               <div className="absolute top-2 right-2 bg-white/90 rounded-lg p-3 shadow-lg max-w-xs">
-                <h4 className="font-semibold text-gray-800 mb-2 text-sm">Content Visibility Controls</h4>
+                <h4 className="font-semibold text-gray-800 mb-2 text-sm">Viewport Controls</h4>
                 <div className="flex flex-col gap-3 text-xs">
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-600 w-16">Top Start:</span>
+                    <span className="text-gray-600 w-16">Top Crop:</span>
                     <input
                       type="range"
                       min="0"
-                      max="1000"
+                      max="500"
                       defaultValue="60"
                       className="w-20 h-1"
                       onChange={(e) => {
-                        const topValue = parseInt(e.target.value);
-                        const bottomSlider = document.querySelector('input[data-control="bottom"]') as HTMLInputElement;
-                        const bottomValue = parseInt(bottomSlider.value);
+                        const topCrop = parseInt(e.target.value);
                         const iframe = document.querySelector('iframe[title="KGEN K-Drop Game"]') as HTMLIFrameElement;
-                        const container = iframe?.parentElement as HTMLElement;
                         
-                        if (iframe && container) {
-                          iframe.style.marginTop = `-${topValue}px`;
-                          container.style.height = `${bottomValue - topValue}px`;
+                        if (iframe) {
+                          iframe.style.marginTop = `-${topCrop}px`;
                         }
-                        document.getElementById('top-value')!.textContent = `${topValue}px`;
+                        document.getElementById('top-value')!.textContent = `${topCrop}px`;
                       }}
                       data-control="top"
                     />
                     <span className="text-gray-500 w-8 text-right" id="top-value">60px</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-600 w-16">Bottom End:</span>
+                    <span className="text-gray-600 w-16">Height:</span>
                     <input
                       type="range"
-                      min="100"
-                      max="1200"
-                      defaultValue="660"
+                      min="200"
+                      max="800"
+                      defaultValue="600"
                       className="w-20 h-1"
                       onChange={(e) => {
-                        const bottomValue = parseInt(e.target.value);
-                        const topSlider = document.querySelector('input[data-control="top"]') as HTMLInputElement;
-                        const topValue = parseInt(topSlider.value);
-                        const iframe = document.querySelector('iframe[title="KGEN K-Drop Game"]') as HTMLIFrameElement;
-                        const container = iframe?.parentElement as HTMLElement;
+                        const visibleHeight = parseInt(e.target.value);
+                        const container = document.querySelector('iframe[title="KGEN K-Drop Game"]')?.parentElement as HTMLElement;
                         
-                        if (iframe && container && bottomValue > topValue) {
-                          container.style.height = `${bottomValue - topValue}px`;
+                        if (container) {
+                          container.style.height = `${visibleHeight}px`;
                         }
-                        document.getElementById('bottom-value')!.textContent = `${bottomValue}px`;
+                        document.getElementById('height-value')!.textContent = `${visibleHeight}px`;
                       }}
-                      data-control="bottom"
+                      data-control="height"
                     />
-                    <span className="text-gray-500 w-8 text-right" id="bottom-value">660px</span>
+                    <span className="text-gray-500 w-8 text-right" id="height-value">600px</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-gray-600 w-16">Left Crop:</span>
@@ -269,10 +262,12 @@ const KachingLanding = () => {
                       defaultValue="0"
                       className="w-20 h-1"
                       onChange={(e) => {
+                        const leftCrop = parseInt(e.target.value);
                         const iframe = document.querySelector('iframe[title="KGEN K-Drop Game"]') as HTMLIFrameElement;
                         if (iframe) {
-                          iframe.style.marginLeft = `${e.target.value}px`;
+                          iframe.style.marginLeft = `${leftCrop}px`;
                         }
+                        document.getElementById('left-value')!.textContent = `${leftCrop}px`;
                       }}
                     />
                     <span className="text-gray-500 w-8 text-right" id="left-value">0px</span>
@@ -284,8 +279,8 @@ const KachingLanding = () => {
                       const iframe = document.querySelector('iframe[title="KGEN K-Drop Game"]') as HTMLIFrameElement;
                       const container = iframe?.parentElement as HTMLElement;
                       const topSlider = document.querySelector('input[data-control="top"]') as HTMLInputElement;
-                      const bottomSlider = document.querySelector('input[data-control="bottom"]') as HTMLInputElement;
-                      const leftSlider = document.querySelector('input[type="range"]:not([data-control])') as HTMLInputElement;
+                      const heightSlider = document.querySelector('input[data-control="height"]') as HTMLInputElement;
+                      const leftSlider = document.querySelector('input:not([data-control])') as HTMLInputElement;
                       
                       if (iframe && container) {
                         iframe.style.marginTop = '-60px';
@@ -297,9 +292,9 @@ const KachingLanding = () => {
                           topSlider.value = '60';
                           document.getElementById('top-value')!.textContent = '60px';
                         }
-                        if (bottomSlider) {
-                          bottomSlider.value = '660';
-                          document.getElementById('bottom-value')!.textContent = '660px';
+                        if (heightSlider) {
+                          heightSlider.value = '600';
+                          document.getElementById('height-value')!.textContent = '600px';
                         }
                         if (leftSlider) {
                           leftSlider.value = '0';
@@ -314,7 +309,7 @@ const KachingLanding = () => {
               </div>
             </div>
             <p className="text-sm text-gray-500 mt-3 text-center">
-              Use the controls in the top-right corner to adjust the visible area and hide header/footer sections.
+              Use "Top Crop" to cut from the top, "Height" for visible area size, and "Left Crop" for horizontal positioning.
             </p>
           </CardContent>
         </Card>
