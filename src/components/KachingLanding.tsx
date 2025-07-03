@@ -188,6 +188,69 @@ const KachingLanding = () => {
           </div>
         </div>
 
+        {/* KGEN K-Drop Game Embed */}
+        <Card className="bg-white/80 backdrop-blur-sm border-red-200 shadow-xl mb-12">
+          <CardContent className="p-6">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              🎮 K-Drop Game - Live Preview
+            </h2>
+            <div className="relative bg-gray-100 rounded-lg overflow-hidden border-2 border-red-200">
+              <div className="h-[600px] overflow-hidden relative">
+                <iframe
+                  src="https://play.kgen.io/k-drop/campaigns/2af8d286-9649-4092-a1fa-84060c368797"
+                  className="w-full border-0 transform transition-transform duration-300"
+                  style={{
+                    height: 'calc(100% + 120px)', // Extra height to accommodate header/footer
+                    marginTop: '-60px', // Negative margin to hide header
+                    marginBottom: '-60px' // Negative margin to hide footer
+                  }}
+                  title="KGEN K-Drop Game"
+                  loading="lazy"
+                />
+              </div>
+              <div className="absolute top-2 right-2 bg-white/90 rounded-lg p-2 shadow-lg">
+                <div className="flex flex-col gap-2 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-600">Header Offset:</span>
+                    <input
+                      type="range"
+                      min="-100"
+                      max="0"
+                      defaultValue="-60"
+                      className="w-16 h-1"
+                      onChange={(e) => {
+                        const iframe = document.querySelector('iframe[title="KGEN K-Drop Game"]') as HTMLIFrameElement;
+                        if (iframe) {
+                          iframe.style.marginTop = `${e.target.value}px`;
+                        }
+                      }}
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-600">Footer Offset:</span>
+                    <input
+                      type="range"
+                      min="-100"
+                      max="0"
+                      defaultValue="-60"
+                      className="w-16 h-1"
+                      onChange={(e) => {
+                        const iframe = document.querySelector('iframe[title="KGEN K-Drop Game"]') as HTMLIFrameElement;
+                        if (iframe) {
+                          iframe.style.marginBottom = `${e.target.value}px`;
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p className="text-sm text-gray-500 mt-3 text-center">
+              Use the controls in the top-right corner to adjust the visible area and hide header/footer sections.
+            </p>
+          </CardContent>
+        </Card>
+
         {/* Pre-Registration CTA */}
         <Card className="bg-gradient-to-r from-white to-red-50 border-red-200 shadow-2xl">
           <CardContent className="p-8 text-center">
