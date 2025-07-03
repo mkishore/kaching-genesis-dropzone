@@ -200,9 +200,9 @@ const KachingLanding = () => {
                   src="https://play.kgen.io/k-drop/campaigns/2af8d286-9649-4092-a1fa-84060c368797"
                   className="w-full border-0 transform transition-transform duration-300"
                   style={{
-                    height: 'calc(100% + 120px)', // Extra height to accommodate header/footer
+                    height: '1200px', // Fixed large height to ensure all content renders
                     marginTop: '-60px', // Negative margin to hide header
-                    marginBottom: '-60px' // Negative margin to hide footer
+                    marginLeft: '0px' // Left positioning
                   }}
                   title="KGEN K-Drop Game"
                   loading="lazy"
