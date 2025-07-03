@@ -208,16 +208,17 @@ const KachingLanding = () => {
                   loading="lazy"
                 />
               </div>
-              <div className="absolute top-2 right-2 bg-white/90 rounded-lg p-2 shadow-lg">
-                <div className="flex flex-col gap-2 text-xs">
+              <div className="absolute top-2 right-2 bg-white/90 rounded-lg p-3 shadow-lg max-w-xs">
+                <h4 className="font-semibold text-gray-800 mb-2 text-sm">Content Visibility Controls</h4>
+                <div className="flex flex-col gap-3 text-xs">
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-600">Header Offset:</span>
+                    <span className="text-gray-600 w-16">Top Crop:</span>
                     <input
                       type="range"
-                      min="-100"
-                      max="0"
+                      min="-200"
+                      max="100"
                       defaultValue="-60"
-                      className="w-16 h-1"
+                      className="w-20 h-1"
                       onChange={(e) => {
                         const iframe = document.querySelector('iframe[title="KGEN K-Drop Game"]') as HTMLIFrameElement;
                         if (iframe) {
@@ -225,15 +226,16 @@ const KachingLanding = () => {
                         }
                       }}
                     />
+                    <span className="text-gray-500 w-8 text-right" id="top-value">-60px</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-600">Footer Offset:</span>
+                    <span className="text-gray-600 w-16">Bottom Crop:</span>
                     <input
                       type="range"
-                      min="-100"
-                      max="0"
+                      min="-200"
+                      max="100"
                       defaultValue="-60"
-                      className="w-16 h-1"
+                      className="w-20 h-1"
                       onChange={(e) => {
                         const iframe = document.querySelector('iframe[title="KGEN K-Drop Game"]') as HTMLIFrameElement;
                         if (iframe) {
@@ -241,7 +243,63 @@ const KachingLanding = () => {
                         }
                       }}
                     />
+                    <span className="text-gray-500 w-8 text-right" id="bottom-value">-60px</span>
                   </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-600 w-16">Frame Height:</span>
+                    <input
+                      type="range"
+                      min="400"
+                      max="800"
+                      defaultValue="600"
+                      className="w-20 h-1"
+                      onChange={(e) => {
+                        const container = document.querySelector('iframe[title="KGEN K-Drop Game"]')?.parentElement as HTMLElement;
+                        if (container) {
+                          container.style.height = `${e.target.value}px`;
+                        }
+                      }}
+                    />
+                    <span className="text-gray-500 w-8 text-right" id="height-value">600px</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-600 w-16">Left Crop:</span>
+                    <input
+                      type="range"
+                      min="-100"
+                      max="100"
+                      defaultValue="0"
+                      className="w-20 h-1"
+                      onChange={(e) => {
+                        const iframe = document.querySelector('iframe[title="KGEN K-Drop Game"]') as HTMLIFrameElement;
+                        if (iframe) {
+                          iframe.style.marginLeft = `${e.target.value}px`;
+                        }
+                      }}
+                    />
+                    <span className="text-gray-500 w-8 text-right" id="left-value">0px</span>
+                  </div>
+                  <button 
+                    className="bg-kaching-red text-white px-2 py-1 rounded text-xs hover:bg-kaching-red-dark transition-colors"
+                    onClick={() => {
+                      // Reset all values
+                      const iframe = document.querySelector('iframe[title="KGEN K-Drop Game"]') as HTMLIFrameElement;
+                      const container = iframe?.parentElement as HTMLElement;
+                      if (iframe && container) {
+                        iframe.style.marginTop = '-60px';
+                        iframe.style.marginBottom = '-60px';
+                        iframe.style.marginLeft = '0px';
+                        container.style.height = '600px';
+                        // Reset sliders
+                        document.querySelectorAll('input[type="range"]').forEach((slider: any, index) => {
+                          const defaults = ['-60', '-60', '600', '0'];
+                          slider.value = defaults[index];
+                        });
+                      }
+                    }}
+                  >
+                    Reset
+                  </button>
                 </div>
               </div>
             </div>
