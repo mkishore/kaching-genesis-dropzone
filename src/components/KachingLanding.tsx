@@ -215,8 +215,8 @@ const KachingLanding = () => {
                     <span className="text-gray-600 w-16">Top Crop:</span>
                     <input
                       type="range"
-                      min="-200"
-                      max="100"
+                      min="-500"
+                      max="500"
                       defaultValue="-60"
                       className="w-20 h-1"
                       onChange={(e) => {
@@ -232,8 +232,8 @@ const KachingLanding = () => {
                     <span className="text-gray-600 w-16">Bottom Crop:</span>
                     <input
                       type="range"
-                      min="-200"
-                      max="100"
+                      min="-500"
+                      max="500"
                       defaultValue="-60"
                       className="w-20 h-1"
                       onChange={(e) => {
@@ -249,8 +249,8 @@ const KachingLanding = () => {
                     <span className="text-gray-600 w-16">Frame Height:</span>
                     <input
                       type="range"
-                      min="400"
-                      max="800"
+                      min="200"
+                      max="1200"
                       defaultValue="600"
                       className="w-20 h-1"
                       onChange={(e) => {
@@ -266,8 +266,8 @@ const KachingLanding = () => {
                     <span className="text-gray-600 w-16">Left Crop:</span>
                     <input
                       type="range"
-                      min="-100"
-                      max="100"
+                      min="-500"
+                      max="500"
                       defaultValue="0"
                       className="w-20 h-1"
                       onChange={(e) => {
